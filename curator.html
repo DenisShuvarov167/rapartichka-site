@@ -7,13 +7,42 @@
 </head>
 <body>
     <h2>Панель куратора</h2>
-    <div id="curatorContent">Здесь будет информация для куратора.</div>
+    <div id="curatorContent">
+        <h3>Явка студентов</h3>
+        <table id="attendanceTable" border="1">
+            <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Группа</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Данные будут добавлены скриптом -->
+            </tbody>
+        </table>
+    </div>
     <script>
     // Проверка роли
     const user = JSON.parse(localStorage.getItem('currentUser'));
     if (!user || (user.role !== 'curator' && user.roleName?.toLowerCase() !== 'куратор')) {
         window.location.href = 'login.html';
     }
+
+    // Пример данных явки
+    const attendanceData = [
+        { name: "Иванов И.И.", group: "ПИ-101", date: "2024-06-01", status: "Присутствует" },
+        { name: "Петров П.П.", group: "ПИ-101", date: "2024-06-01", status: "Отсутствует" }
+    ];
+
+    // Заполнение таблицы
+    const tbody = document.querySelector('#attendanceTable tbody');
+    attendanceData.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${item.name}</td><td>${item.group}</td><td>${item.date}</td><td>${item.status}</td>`;
+        tbody.appendChild(tr);
+    });
     </script>
 </body>
 </html>
